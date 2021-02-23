@@ -10,9 +10,9 @@ namespace InfraCleanArch.Repositorios
 {
 	public class CategoriaRepositorio : ICategoriaRepositorio
 	{
-		public readonly ProdutosDbContext _contexto;
+		public readonly DaniloRenatoCommerceDbContext _contexto;
 
-		public CategoriaRepositorio(ProdutosDbContext contexto)
+		public CategoriaRepositorio(DaniloRenatoCommerceDbContext contexto)
 		{
 			_contexto = contexto;
 		}
