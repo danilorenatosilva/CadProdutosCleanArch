@@ -7,7 +7,7 @@ namespace DominioCleanArch.Interfaces
 		IEnumerable<Produto> GetProdutos();
 		Produto GetProdutoById(int id);
 		Produto Create(Produto produto);
-		Produto Update(int id, Produto produto);
+		void Update(int id, Produto produto);
 		void Delete(int id);
 	}
 }
