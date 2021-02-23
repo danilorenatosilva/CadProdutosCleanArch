@@ -1,6 +1,8 @@
 using InfraCleanArch;
+using InfraCleanArch.Contexto;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +24,12 @@ namespace API
 		{
 
 			services.AddControllers();
+			
+			services.AddDbContext<DaniloRenatoCommerceDbContext>(options =>
+			{
+				options.UseSqlServer(Configuration.GetConnectionString("DaniloRenatoCommerceConnectionString"));
+			});
+
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
