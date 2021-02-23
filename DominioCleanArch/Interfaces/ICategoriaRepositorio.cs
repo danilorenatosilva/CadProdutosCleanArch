@@ -7,7 +7,7 @@ namespace DominioCleanArch.Interfaces
 		IEnumerable<Categoria> GetCategorias();
 		Categoria GetCategoriaById(int id);
 		Categoria Create(Categoria categoria);
-		Categoria Update(int id, Categoria categoria);
+		void Update(int id, Categoria categoria);
 		void Delete(int id);
 	}
 }
