@@ -34,13 +34,8 @@ namespace InfraCleanArch.Repositorios
 			return categoria;
 		}
 
-		public void Update(int id, Categoria categoria)
-		{
-			var categoriaToUpdate = GetCategoriaById(id);
-			if (categoriaToUpdate == null)
-			{
-				throw new Exception("Categoria não encontrado no banco de dados");
-			}
+		public void Update(Categoria categoria)
+		{			
 			_contexto.Entry(categoria).State = EntityState.Modified;
 			_contexto.SaveChanges();
 		}
@@ -53,6 +48,7 @@ namespace InfraCleanArch.Repositorios
 				throw new Exception("Categoria não encontrado no banco de dados");
 			}
 			_contexto.Remove(categoria);
+			_contexto.SaveChanges();
 		}
 	}
 }

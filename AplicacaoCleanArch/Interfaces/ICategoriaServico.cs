@@ -7,8 +7,8 @@ namespace AplicacaoCleanArch.Interfaces
 	{
 		IEnumerable<Categoria> GetCategorias();
 		Categoria GetCategoriaById(int id);
-		Categoria Create(Categoria produto);
-		void Update(int id, Categoria produto);
+		Categoria Create(Categoria categoria);
+		void Update(Categoria categoria);
 		void Delete(int id);
 	}
 }
