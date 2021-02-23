@@ -39,9 +39,9 @@ namespace AplicacaoCleanArch.Servicos
 			return _repositorio.GetProdutosByIdCategoria(idCategoria);
 		}
 
-		public void Update(int id, Produto produto)
+		public void Update(Produto produto)
 		{
-			_repositorio.Update(id, produto);
+			_repositorio.Update(produto);
 		}
 	}
 }

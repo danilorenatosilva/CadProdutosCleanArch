@@ -9,7 +9,7 @@ namespace AplicacaoCleanArch.Interfaces
 		Produto GetProdutoById(int id);
 		IEnumerable<Produto> GetProdutosByIdCategoria(int idCategoria);
 		Produto Create(Produto produto);
-		void Update(int id, Produto produto);
+		void Update(Produto produto);
 		void Delete(int id);
 	}
 }

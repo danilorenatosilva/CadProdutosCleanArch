@@ -34,13 +34,8 @@ namespace InfraCleanArch.Repositorios
 			return produto;
 		}
 
-		public void Update(int id, Produto produto)
-		{
-			var produtoToUpdate = GetProdutoById(id);
-			if (produtoToUpdate == null)
-			{
-				throw new Exception("Produto não encontrado no banco de dados");
-			}
+		public void Update(Produto produto)
+		{			
 			_contexto.Entry(produto).State = EntityState.Modified;
 			_contexto.SaveChanges();
 		}
