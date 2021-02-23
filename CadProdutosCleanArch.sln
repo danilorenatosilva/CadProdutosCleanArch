@@ -3,9 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{83C2C913-87C0-4DF7-9178-0F45F13BC751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DominioCleanArch", "DominioCleanArch\DominioCleanArch.csproj", "{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792} = {83C2C913-87C0-4DF7-9178-0F45F13BC751}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA959C72-97DB-4F2B-BFBB-1AFB9460E4BD}
