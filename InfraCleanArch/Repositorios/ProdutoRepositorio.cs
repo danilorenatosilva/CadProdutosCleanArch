@@ -48,6 +48,7 @@ namespace InfraCleanArch.Repositorios
 				throw new Exception("Produto não encontrado no banco de dados");
 			}
 			_contexto.Remove(produto);
+			_contexto.SaveChanges();
 		}
 
 		public IEnumerable<Produto> GetProdutosByIdCategoria(int idCategoria)
