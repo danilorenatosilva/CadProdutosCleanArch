@@ -9,8 +9,7 @@ window.onload = function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                $("#container").html('');
+                $("#conteudo").html('');
                 let html = "<div class='row'>";
                 $.each(data, function (i, item) {
                     html += "<div class='col-md-3 card'>" +
@@ -19,8 +18,7 @@ window.onload = function () {
                         "</div>";
                 });
                 html += "</div>";
-                console.log(html);
-                $("#container").append(html);
+                $("#conteudo").append(html);
             },
             failure: function (data) {
                 alert("failure");
@@ -32,5 +30,54 @@ window.onload = function () {
     }
 
     carregaCategorias();
+
+    function serializaFormulario(form) {
+        let objeto = {};
+        let campos = form.elements;
+        alert(campos);
+        for (let i = 0; i < campos.length; i++) {
+            if (campos[i] && campos[i].name) {
+                let key = campos[i].name;
+                objeto[key] = campos[i].value;
+            }
+        }
+        return objeto;
+    }
+
+    function carregaFormCategoria() {
+        $("#conteudo").html('');
+        let html = "<h2>Adicionar Nova Categoria</h2>" +
+            "<form id='formCategoria'>" +
+            "<div class='form-group'>" +
+            "<label for='nome'>Nome</label>" +
+            "<input type='text' name='nome' class='form-control' />" +
+            "</div>" +
+            "<div class='form-group'>" +
+            "<label for='nome'>Descricao</label>" +
+            "<textarea name='descricao' class='form-control' rows='4'></textarea>" +
+            "</div>" +
+            "<div class='form-group'>" +
+            "<label for='urlImagem'>Imagem</label>" +
+            "<input type='file' class='form-control-file' name='imagemUrl'>" +
+            "</div>" +
+            "<button type='submit' class='btn btn-primary'>Salvar</button>" +
+            "</form>";
+        $("#conteudo").html(html);
+
+        $('#formCategoria').on('submit', (function (e) {
+            e.preventDefault()            
+            $.ajax({
+                type: 'POST',
+                url: "https://localhost:44320/api/categorias",
+                data: JSON.stringify(serializaFormulario(this)),
+                cache: false
+            });
+        }));
+    }
+
+    let btnAdicionar = document.getElementById("adicionarCategoria");
+    btnAdicionar.onclick = function () {
+        carregaFormCategoria();
+    };
 
 }
