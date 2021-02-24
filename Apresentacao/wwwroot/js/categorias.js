@@ -58,7 +58,7 @@ window.onload = function () {
             "</div>" +
             "<div class='form-group'>" +
             "<label for='urlImagem'>Imagem</label>" +
-            "<input type='file' class='form-control-file' name='imagemUrl'>" +
+            "<input type='file' class='form-control-file' name='urlImagem'>" +
             "</div>" +
             "<button type='submit' class='btn btn-primary'>Salvar</button>" +
             "</form>";
@@ -68,6 +68,7 @@ window.onload = function () {
             e.preventDefault()            
             $.ajax({
                 type: 'POST',
+                contentType: "application/json; charset=utf-8",
                 url: "https://localhost:44320/api/categorias",
                 data: JSON.stringify(serializaFormulario(this)),
                 cache: false
