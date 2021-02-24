@@ -4,6 +4,7 @@ using AutoMapper;
 using DominioCleanArch;
 using DominioCleanArch.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AplicacaoCleanArch.Servicos
 {
@@ -37,7 +38,8 @@ namespace AplicacaoCleanArch.Servicos
 
 		public IEnumerable<CategoriaViewModel> GetCategorias()
 		{
-			return _mapper.Map<IEnumerable<CategoriaViewModel>>( _repositorio.GetCategorias());
+			var categorias = _repositorio.GetCategorias().ToList();
+			return _mapper.Map<List<CategoriaViewModel>>(categorias);
 		}
 
 		public void Update(CategoriaViewModel categoriaViewModel)

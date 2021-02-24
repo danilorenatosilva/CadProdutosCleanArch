@@ -1,7 +1,12 @@
 ﻿using AplicacaoCleanArch.Interfaces;
-using DominioCleanArch;
+using AplicacaoCleanArch.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -10,38 +15,61 @@ namespace API.Controllers
 	public class CategoriasController : ControllerBase
 	{
 		private readonly ICategoriaServico _servico;
+		private readonly IWebHostEnvironment _webHostEnvironment;
 
-		public CategoriasController(ICategoriaServico servico)
+		public CategoriasController(ICategoriaServico servico, IWebHostEnvironment webHostEnvironment)
 		{
 			_servico = servico;
+			_webHostEnvironment = webHostEnvironment;
 		}
 
 		[HttpGet]
-		public ActionResult<IEnumerable<Categoria>> Get()
+		public ActionResult<IEnumerable<CategoriaViewModel>> Get()
 		{
-			return Ok(_servico.GetCategorias());
+			var viewModel = _servico.GetCategorias();
+			return Ok(viewModel);
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<Categoria> Get(int id)
+		public ActionResult<CategoriaViewModel> Get(int id)
 		{
 			var categoria = _servico.GetCategoriaById(id);
 			if (categoria == null)
 			{
-				return BadRequest("Categoria não encontrada");
+				return BadRequest("CategoriaViewModel não encontrada");
 			}
 			return Ok(categoria);
 		}
 
 		[HttpPost]
-		public ActionResult<Categoria> Create(Categoria categoria)
+		public ActionResult<CategoriaViewModel> Create(CategoriaViewModel categoria)
 		{
-			_servico.Create(categoria);
-			return Ok(categoria);
+			try
+			{
+				var arquivoImagem = categoria.ArquivoImagem;
+				if (arquivoImagem.Length > 0)
+				{
+					var diretorioUploads = Path.Combine(_webHostEnvironment.ContentRootPath, "imagens");
+					var caminhoArquivo = Path.Combine(diretorioUploads, arquivoImagem.FileName);
+
+					using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+					{
+						arquivoImagem.CopyTo(stream);
+					}
+
+					categoria.UrlImagem = caminhoArquivo;
+				}
+				_servico.Create(categoria);
+				return Ok(categoria);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+			}
 		}
 
 		[HttpPut("{id}")]
-		public ActionResult Update(int id, Categoria categoria)
+		public ActionResult Update(int id, CategoriaViewModel categoria)
 		{
 			if (id != categoria.Id)
 			{
