@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -42,24 +41,24 @@ namespace API.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult<CategoriaViewModel> Create(CategoriaViewModel categoria)
+		public ActionResult<CategoriaViewModel> Create([FromForm]CategoriaViewModel categoria)
 		{
 			try
 			{
-				var arquivoImagem = categoria.ArquivoImagem;
-				if (arquivoImagem.Length > 0)
+				if (categoria.ArquivoImagem.Length > 0)
 				{
 					var diretorioUploads = Path.Combine(_webHostEnvironment.ContentRootPath, "imagens");
-					var caminhoArquivo = Path.Combine(diretorioUploads, arquivoImagem.FileName);
+					var caminhoArquivo = Path.Combine(diretorioUploads, categoria.ArquivoImagem.FileName);
+
+					categoria.UrlImagem = caminhoArquivo;
 
 					using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
 					{
-						arquivoImagem.CopyTo(stream);
+						categoria.ArquivoImagem.CopyTo(stream);
 					}
-
-					categoria.UrlImagem = caminhoArquivo;
 				}
-				_servico.Create(categoria);
+				var created = _servico.Create(categoria);
+				categoria.Id = created.Id;
 				return Ok(categoria);
 			}
 			catch (Exception ex)

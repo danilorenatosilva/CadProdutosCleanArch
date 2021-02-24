@@ -43,8 +43,6 @@ namespace API
 			{
 				cfg.CreateMap<CategoriaViewModel, Categoria>();
 				cfg.CreateMap<Categoria, CategoriaViewModel>();
-				cfg.CreateMap<IEnumerable<CategoriaViewModel>, IEnumerable<Categoria>>();
-				cfg.CreateMap<IEnumerable<Categoria>, IEnumerable<CategoriaViewModel>>();
 			});
 
 			IMapper mapper = config.CreateMapper();
