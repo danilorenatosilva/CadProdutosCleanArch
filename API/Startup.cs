@@ -1,3 +1,6 @@
+using AplicacaoCleanArch.ViewModels;
+using AutoMapper;
+using DominioCleanArch;
 using InfraCleanArch;
 using InfraCleanArch.Contexto;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace API
 {
@@ -34,6 +38,17 @@ namespace API
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
 			});
+
+			var config = new AutoMapper.MapperConfiguration(cfg =>
+			{
+				cfg.CreateMap<CategoriaViewModel, Categoria>();
+				cfg.CreateMap<Categoria, CategoriaViewModel>();
+				cfg.CreateMap<IEnumerable<CategoriaViewModel>, IEnumerable<Categoria>>();
+				cfg.CreateMap<IEnumerable<Categoria>, IEnumerable<CategoriaViewModel>>();
+			});
+
+			IMapper mapper = config.CreateMapper();
+			services.AddSingleton(mapper);
 
 			RegisterServices(services);
 		}

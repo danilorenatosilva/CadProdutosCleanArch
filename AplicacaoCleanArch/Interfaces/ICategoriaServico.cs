@@ -1,14 +1,15 @@
-﻿using DominioCleanArch;
+﻿using AplicacaoCleanArch.ViewModels;
+using DominioCleanArch;
 using System.Collections.Generic;
 
 namespace AplicacaoCleanArch.Interfaces
 {
 	public interface ICategoriaServico
 	{
-		IEnumerable<Categoria> GetCategorias();
-		Categoria GetCategoriaById(int id);
-		Categoria Create(Categoria categoria);
-		void Update(Categoria categoria);
+		IEnumerable<CategoriaViewModel> GetCategorias();
+		CategoriaViewModel GetCategoriaById(int id);
+		CategoriaViewModel Create(CategoriaViewModel categoria);
+		void Update(CategoriaViewModel categoria);
 		void Delete(int id);
 	}
 }
