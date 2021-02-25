@@ -1,22 +1,28 @@
 ﻿using AplicacaoCleanArch.Interfaces;
+using AplicacaoCleanArch.ViewModels;
+using AutoMapper;
 using DominioCleanArch;
 using DominioCleanArch.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AplicacaoCleanArch.Servicos
 {
 	public class ProdutoServico : IProdutoServico
 	{
 		private readonly IProdutoRepositorio _repositorio;
+		private readonly IMapper _mapper;
 
-		public ProdutoServico(IProdutoRepositorio repositorio)
+		public ProdutoServico(IProdutoRepositorio repositorio, IMapper mapper)
 		{
 			_repositorio = repositorio;
+			_mapper = mapper;
 		}
 
-		public Produto Create(Produto produto)
+		public ProdutoViewModel Create(ProdutoViewModel produtoViewModel)
 		{
-			return _repositorio.Create(produto);
+			Produto produto = _mapper.Map<Produto>(produtoViewModel);
+			return _mapper.Map<ProdutoViewModel>(_repositorio.Create(produto));
 		}
 
 		public void Delete(int id)
@@ -24,23 +30,24 @@ namespace AplicacaoCleanArch.Servicos
 			_repositorio.Delete(id);
 		}
 
-		public Produto GetProdutoById(int id)
+		public ProdutoViewModel GetProdutoById(int id)
 		{
-			return _repositorio.GetProdutoById(id);
+			return _mapper.Map<ProdutoViewModel>(_repositorio.Create(_repositorio.GetProdutoById(id)));
 		}
 
-		public IEnumerable<Produto> GetProdutos()
+		public IEnumerable<ProdutoViewModel> GetProdutos()
 		{
-			return _repositorio.GetProdutos();
+			return _mapper.Map<List<ProdutoViewModel>>(_repositorio.GetProdutos().ToList());
 		}
 
-		public IEnumerable<Produto> GetProdutosByIdCategoria(int idCategoria)
+		public IEnumerable<ProdutoViewModel> GetProdutosByIdCategoria(int idCategoria)
 		{
-			return _repositorio.GetProdutosByIdCategoria(idCategoria);
+			return _mapper.Map<List<ProdutoViewModel>>(_repositorio.GetProdutosByIdCategoria(idCategoria));
 		}
 
-		public void Update(Produto produto)
+		public void Update(ProdutoViewModel produtoViewModel)
 		{
+			Produto produto = _mapper.Map<Produto>(produtoViewModel);
 			_repositorio.Update(produto);
 		}
 	}
