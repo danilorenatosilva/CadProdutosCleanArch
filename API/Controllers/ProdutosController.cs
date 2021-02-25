@@ -1,7 +1,11 @@
 ﻿using AplicacaoCleanArch.Interfaces;
+using AplicacaoCleanArch.ViewModels;
 using DominioCleanArch;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace API.Controllers
@@ -18,51 +22,77 @@ namespace API.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult<IEnumerable<Produto>> Get()
+		public ActionResult<IEnumerable<ProdutoViewModel>> Get()
 		{
 			return Ok(_servico.GetProdutos());
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<Produto> Get(int id)
+		public ActionResult<ProdutoViewModel> Get(int id)
 		{
 			var produto = _servico.GetProdutoById(id);
 			if (produto == null)
 			{
-				return BadRequest("Produto não encontrado");
+				return BadRequest("ProdutoViewModel não encontrado");
 			}
 			return Ok(produto);
 		}
 
-		[HttpGet("categoria/{id}")]
-		public ActionResult<IEnumerable<Produto>> GetByIdCategoria(int id)
+		[HttpGet("produto/{id}")]
+		public ActionResult<IEnumerable<ProdutoViewModel>> GetByIdCategoria(int id)
 		{
 			var produtos = _servico.GetProdutosByIdCategoria(id).ToList();
 			if (produtos == null || produtos.Count <= 0)
 			{
-				return BadRequest("Produtos não encontrados para esta categoria");
+				return BadRequest("Produtos não encontrados para esta produto");
 			}
 			return Ok(produtos);
 		}
 
 		[HttpPost]
-		public ActionResult<Produto> Create(Produto produto)
+		public ActionResult<ProdutoViewModel> Create([FromForm]ProdutoViewModel produto)
 		{
-			_servico.Create(produto);
-			return Ok(produto);
+			try
+			{
+				if (produto.ArquivoImagem.Length > 0)
+				{
+					produto.UrlImagem = "/imagens/" + produto.ArquivoImagem.FileName;
+
+					using (var stream = new FileStream(Path.Combine(produto.CaminhoFisicoImagens, produto.ArquivoImagem.FileName), FileMode.Create))
+					{
+						produto.ArquivoImagem.CopyTo(stream);
+					}
+				}
+				_servico.Create(produto);
+				return Ok(produto);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+			}
 		}
 
-		[HttpPut("{id}")]
-		public ActionResult Update(int id, Produto produto)
+		[HttpPut]
+		public ActionResult Update([FromForm]ProdutoViewModel produto)
 		{
-			if (id != produto.Id)
+			try
 			{
-				return BadRequest();
+				if (produto.ArquivoImagem != null && produto.ArquivoImagem.Length > 0)
+				{
+					produto.UrlImagem = "/imagens/" + produto.ArquivoImagem.FileName;
+
+					using (var stream = new FileStream(Path.Combine(produto.CaminhoFisicoImagens, produto.ArquivoImagem.FileName), FileMode.Create))
+					{
+						produto.ArquivoImagem.CopyTo(stream);
+					}
+				}
+				_servico.Update(produto);
+				return NoContent();
 			}
-
-			_servico.Update(produto);
-
-			return NoContent();
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+			}
 		}
 
 		[HttpDelete("{id}")]
