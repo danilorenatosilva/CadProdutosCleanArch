@@ -42,6 +42,11 @@ namespace InfraCleanArch.Repositorios
 
 		public void Delete(int id)
 		{
+			var produtos = _contexto.Produtos.Where(p => p.IdCategoria == id).ToList();
+			if (produtos != null && produtos.Count > 0)
+			{
+				throw new Exception("Esta categoria tem produtos vinculados a ela");
+			}
 			var categoria = GetCategoriaById(id);
 			if (categoria == null)
 			{
