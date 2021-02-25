@@ -47,6 +47,8 @@ window.onload = function () {
 
         $("#conteudo").html('');
 
+        let caminhoFisicoImagens = document.getElementById('caminhoFisicoImagens').value;
+
         let html = "<h2>Nova Categoria</h2>" +
             "<form id='formCategoria' enctype='multipart/form-data' method='post'>" +
             "<div class='form-group'>" +
@@ -62,6 +64,7 @@ window.onload = function () {
             "<input type='file' class='form-control-file' name='arquivoImagem' id='arquivoImagem' accept='image/*' />" +
             "</div>" +
             "<button type='submit' class='btn btn-primary'>Salvar</button>" +
+            "<input type='hidden' name='caminhoFisicoImagens' value='" + caminhoFisicoImagens + "' />";
             "</form>";
 
         $("#conteudo").html(html);

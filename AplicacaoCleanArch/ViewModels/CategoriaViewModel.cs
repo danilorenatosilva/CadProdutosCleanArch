@@ -9,5 +9,6 @@ namespace AplicacaoCleanArch.ViewModels
 		public string UrlImagem { get; set; }
 		public string Descricao { get; set; }
 		public IFormFile ArquivoImagem { get; set; }
+		public string CaminhoFisicoImagens { get; set; }
 	}
 }

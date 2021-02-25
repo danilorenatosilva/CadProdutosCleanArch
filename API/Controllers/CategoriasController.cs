@@ -47,12 +47,9 @@ namespace API.Controllers
 			{
 				if (categoria.ArquivoImagem.Length > 0)
 				{
-					var diretorioUploads = Path.Combine(_webHostEnvironment.ContentRootPath, "imagens");
-					var caminhoArquivo = Path.Combine(diretorioUploads, categoria.ArquivoImagem.FileName);
+					categoria.UrlImagem = "/imagens/"+categoria.ArquivoImagem.FileName;
 
-					categoria.UrlImagem = caminhoArquivo;
-
-					using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+					using (var stream = new FileStream(Path.Combine(categoria.CaminhoFisicoImagens, categoria.ArquivoImagem.FileName), FileMode.Create))
 					{
 						categoria.ArquivoImagem.CopyTo(stream);
 					}
