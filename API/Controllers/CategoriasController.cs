@@ -54,8 +54,7 @@ namespace API.Controllers
 						categoria.ArquivoImagem.CopyTo(stream);
 					}
 				}
-				var created = _servico.Create(categoria);
-				categoria.Id = created.Id;
+				_servico.Create(categoria);
 				return Ok(categoria);
 			}
 			catch (Exception ex)
@@ -64,24 +63,41 @@ namespace API.Controllers
 			}
 		}
 
-		[HttpPut("{id}")]
-		public ActionResult Update(int id, CategoriaViewModel categoria)
+		[HttpPut]
+		public ActionResult Update([FromForm]CategoriaViewModel categoria)
 		{
-			if (id != categoria.Id)
+			try
 			{
-				return BadRequest();
+				if (categoria.ArquivoImagem != null && categoria.ArquivoImagem.Length > 0)
+				{
+					categoria.UrlImagem = "/imagens/" + categoria.ArquivoImagem.FileName;
+
+					using (var stream = new FileStream(Path.Combine(categoria.CaminhoFisicoImagens, categoria.ArquivoImagem.FileName), FileMode.Create))
+					{
+						categoria.ArquivoImagem.CopyTo(stream);
+					}
+				}
+				_servico.Update(categoria);
+				return NoContent();
 			}
-
-			_servico.Update(categoria);
-
-			return NoContent();
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+			}
 		}
 
 		[HttpDelete("{id}")]
 		public ActionResult Delete(int id)
 		{
-			_servico.Delete(id);
-			return NoContent();
+			try
+			{
+				_servico.Delete(id);
+				return NoContent();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+			}
 		}
 	}
 }
