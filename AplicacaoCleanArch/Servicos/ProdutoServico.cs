@@ -32,7 +32,7 @@ namespace AplicacaoCleanArch.Servicos
 
 		public ProdutoViewModel GetProdutoById(int id)
 		{
-			return _mapper.Map<ProdutoViewModel>(_repositorio.Create(_repositorio.GetProdutoById(id)));
+			return _mapper.Map<ProdutoViewModel>(_repositorio.GetProdutoById(id));
 		}
 
 		public IEnumerable<ProdutoViewModel> GetProdutos()
