@@ -32,22 +32,23 @@ window.onload = function () {
     carregaCategorias();
 
     function serializaFormulario(form) {
-        let objeto = {};
+        let objeto = { };
         let campos = form.elements;
-        alert(campos);
         for (let i = 0; i < campos.length; i++) {
             if (campos[i] && campos[i].name) {
                 let key = campos[i].name;
                 objeto[key] = campos[i].value;
             }
         }
-        return objeto;
+        return JSON.stringify(objeto);
     }
 
     function carregaFormCategoria() {
+
         $("#conteudo").html('');
-        let html = "<h2>Adicionar Nova Categoria</h2>" +
-            "<form id='formCategoria'>" +
+
+        let html = "<h2>Nova Categoria</h2>" +
+            "<form id='formCategoria' enctype='multipart/form-data' method='post'>" +
             "<div class='form-group'>" +
             "<label for='nome'>Nome</label>" +
             "<input type='text' name='nome' class='form-control' />" +
@@ -58,20 +59,30 @@ window.onload = function () {
             "</div>" +
             "<div class='form-group'>" +
             "<label for='urlImagem'>Imagem</label>" +
-            "<input type='file' class='form-control-file' name='urlImagem'>" +
+            "<input type='file' class='form-control-file' name='arquivoImagem' id='arquivoImagem' accept='image/*' />" +
             "</div>" +
             "<button type='submit' class='btn btn-primary'>Salvar</button>" +
             "</form>";
+
         $("#conteudo").html(html);
 
         $('#formCategoria').on('submit', (function (e) {
-            e.preventDefault()            
+            e.preventDefault();
+
+            let formData = new FormData(this);
+           
             $.ajax({
                 type: 'POST',
-                contentType: "application/json; charset=utf-8",
                 url: "https://localhost:44320/api/categorias",
-                data: JSON.stringify(serializaFormulario(this)),
-                cache: false
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                   
+                },
+                error: function (error) {
+                    console.log(error.responseText);
+                }
             });
         }));
     }
