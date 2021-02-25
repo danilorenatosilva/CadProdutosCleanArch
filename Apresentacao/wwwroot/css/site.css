@@ -90,6 +90,10 @@ body {
     left: 0;
 }
 
+.imagem-card {
+    height: 200px;
+}
+
 .right-button {
     float: right;
     display: inline-block;
@@ -99,8 +103,21 @@ body {
 .header {
     height: 100px;
     width: 100%;
-    margin-bottom: 10px;
-    border: 1px solid;
+    margin-bottom: 20px;
     padding: 5px;
     vertical-align: middle;
+}
+
+.editarCategoria {
+    width: 45%;
+    margin: 3px;
+}
+
+.deletarCategoria {
+    width: 45%;
+    margin: 3px;
+}
+
+.botoes {
+    display: inline;
 }
