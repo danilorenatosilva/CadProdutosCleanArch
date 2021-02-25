@@ -1,6 +1,27 @@
 ﻿
 window.onload = function () {
 
+    function carregaDropDownCategorias() {
+        $.get("https://localhost:44320/api/categorias", function (data) {
+            let dropDownCategorias = document.getElementById("ddlCategoria");
+            for (let i = 0; i < data.length; i++) {
+                let option = document.createElement('option');
+                option.value = data[i].id;
+                option.text = data[i].nome;
+                dropDownCategorias.appendChild(option);
+            }
+        });
+    }
+
+    function carregaCamposForm(id) {
+        $.get("https://localhost:44320/api/produtos/" + id, function (data) {
+            document.getElementById("nome").value = data.nome;
+            document.getElementById("descricao").value = data.descricao;
+            document.getElementById("precounitario").value = data.precoUnitario;
+            document.getElementById("ddlCategoria").value = data.idCategoria;
+        });
+    }
+
     function carregaFormProduto(id) {
 
         let editando = id != undefined;
@@ -11,11 +32,13 @@ window.onload = function () {
         let titulo = editando ? "Editar Produto" : "Nova Produto";
         let metodoHttp = editando ? "PUT" : "POST";
 
-        let html = "<h2>" + titulo + "</h2>" +
+        let html = 
+            "<div class='container-form'>" +
+            "<h2>" + titulo + "</h2>" +
             "<form id='formProduto' enctype='multipart/form-data' method='post'>" +
             "<div class='form-group'>" +
             "<label for='nome'>Categoria</label>" +
-            "<select type='text' name='IdCategoria' id='ddlCategoria' class='form-control' /> " +
+            "<select type='text' name='IdCategoria' id='ddlCategoria' class='form-control'></select> " +
             "</div>" +
             "<div class='form-group'>" +
             "<label for='nome'>Nome</label>" +
@@ -34,23 +57,27 @@ window.onload = function () {
             "<input type='file' class='form-control-file' name='arquivoImagem' id='arquivoImagem' accept='image/*' />" +
             "</div>" +
             "<button type='submit' class='btn btn-primary'>Salvar</button>" +
-            "<input type='hidden' name='caminhoFisicoImagens' value='" + caminhoFisicoImagens + "' />";
+            "<button id='btnCancelar' class='btn btn-danger'>Cancelar</button>" +
+            "<input type='hidden' name='caminhoFisicoImagens' value='" + caminhoFisicoImagens + "' />";            
 
         if (editando) {
             html += "<input type='hidden' value='" + id + "' name='id' />";
         }
 
-        html += "</form>";
+        html += "</form></div>";
 
         $("#conteudo").html(html);
 
+        let btnCancelar = document.getElementById("btnCancelar");
+        btnCancelar.onclick = function (e) {
+            e.preventDefault();
+            carregaProdutos();
+        };
+
+        carregaDropDownCategorias();
+
         if (editando) {
-            $.get("https://localhost:44320/api/produtos/" + id, function (data) {
-                document.getElementById("nome").value = data.nome;
-                document.getElementById("descricao").value = data.descricao;
-                document.getElementById("precounitario").value = data.precounitario;
-                document.getElementById("idcategoria").value = data.idcategoria;
-            });
+            carregaCamposForm(id);
         }
 
         $('#formProduto').on('submit', (function (e) {
@@ -100,7 +127,7 @@ window.onload = function () {
                 });
                 html += "</div>";
 
-                $("#conteudo").append(html);
+                $("#conteudo").append(html);                
 
                 let botoesEdicao = document.getElementsByClassName('editarProduto');
                 for (let i = 0; i < botoesEdicao.length; i++) {
@@ -114,7 +141,7 @@ window.onload = function () {
                 for (let i = 0; i < botoesDelecao.length; i++) {
                     botoesDelecao[i].onclick = function () {
                         let id = $(this).attr("id").split('-')[1];
-                        let resposta = confirm("Tem certeza que deseja excluir esta produto?");
+                        let resposta = confirm("Tem certeza que deseja excluir este produto?");
                         if (resposta) {
                             $.ajax({
                                 type: "DELETE",
@@ -144,6 +171,6 @@ window.onload = function () {
     let btnAdicionar = document.getElementById("adicionarProduto");
     btnAdicionar.onclick = function () {
         carregaFormProduto();
-    };
+    };    
 
 }

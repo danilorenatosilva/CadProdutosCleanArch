@@ -1,6 +1,13 @@
 ﻿
 window.onload = function () {
 
+    function carregaCamposForm(id) {
+        $.get("https://localhost:44320/api/categorias/" + id, function (data) {
+            document.getElementById("nome").value = data.nome;
+            document.getElementById("descricao").value = data.descricao;
+        });
+    }
+
     function carregaFormCategoria(id) {
 
         let editando = id != undefined;        
@@ -11,7 +18,9 @@ window.onload = function () {
         let titulo = editando ? "Editar Categoria" : "Nova Categoria";
         let metodoHttp = editando ? "PUT" : "POST";
 
-        let html = "<h2>" + titulo + "</h2>" +
+        let html =
+            "<div class='container-form'>" +
+            "<h2>" + titulo + "</h2>" +
             "<form id='formCategoria' enctype='multipart/form-data' method='post'>" +
             "<div class='form-group'>" +
             "<label for='nome'>Nome</label>" +
@@ -26,21 +35,25 @@ window.onload = function () {
             "<input type='file' class='form-control-file' name='arquivoImagem' id='arquivoImagem' accept='image/*' />" +
             "</div>" +
             "<button type='submit' class='btn btn-primary'>Salvar</button>" +
+            "<button id='btnCancelar' class='btn btn-danger'>Cancelar</button>" +
             "<input type='hidden' name='caminhoFisicoImagens' value='" + caminhoFisicoImagens + "' />";
 
         if (editando) {
             html += "<input type='hidden' value='"+id+"' name='id' />";
         }
 
-        html += "</form>";
+        html += "</form></div>";
 
         $("#conteudo").html(html);
 
+        let btnCancelar = document.getElementById("btnCancelar");
+        btnCancelar.onclick = function (e) {
+            e.preventDefault();
+            carregaCategorias();
+        };
+
         if (editando) {
-            $.get("https://localhost:44320/api/categorias/" + id, function (data) {
-                document.getElementById("nome").value = data.nome;
-                document.getElementById("descricao").value = data.descricao;
-            });
+            carregaCamposForm(id);
         }
 
         $('#formCategoria').on('submit', (function (e) {
@@ -130,18 +143,6 @@ window.onload = function () {
     }
 
     carregaCategorias();
-
-    function serializaFormulario(form) {
-        let objeto = { };
-        let campos = form.elements;
-        for (let i = 0; i < campos.length; i++) {
-            if (campos[i] && campos[i].name) {
-                let key = campos[i].name;
-                objeto[key] = campos[i].value;
-            }
-        }
-        return JSON.stringify(objeto);
-    }    
 
     let btnAdicionar = document.getElementById("adicionarCategoria");
     btnAdicionar.onclick = function () {
