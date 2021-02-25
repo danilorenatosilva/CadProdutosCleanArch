@@ -1,4 +1,6 @@
-﻿namespace AplicacaoCleanArch.ViewModels
+﻿using Microsoft.AspNetCore.Http;
+
+namespace AplicacaoCleanArch.ViewModels
 {
 	public class ProdutoViewModel
 	{
