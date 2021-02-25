@@ -43,6 +43,8 @@ namespace API
 			{
 				cfg.CreateMap<CategoriaViewModel, Categoria>();
 				cfg.CreateMap<Categoria, CategoriaViewModel>();
+				cfg.CreateMap<ProdutoViewModel, Produto>();
+				cfg.CreateMap<Produto, ProdutoViewModel>();
 			});
 
 			IMapper mapper = config.CreateMapper();
