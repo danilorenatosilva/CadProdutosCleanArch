@@ -121,3 +121,8 @@ body {
 .botoes {
     display: inline;
 }
+
+.container-form {
+    margin-left: 20%;
+    margin-right: 20%;
+}
