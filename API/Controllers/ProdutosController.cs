@@ -44,7 +44,7 @@ namespace API.Controllers
 			var produtos = _servico.GetProdutosByIdCategoria(id).ToList();
 			if (produtos == null || produtos.Count <= 0)
 			{
-				return BadRequest("Produtos não encontrados para esta produto");
+				return BadRequest("Produtos não encontrados para esta categoria");
 			}
 			return Ok(produtos);
 		}
