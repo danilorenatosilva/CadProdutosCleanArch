@@ -98,8 +98,15 @@ namespace API.Controllers
 		[HttpDelete("{id}")]
 		public ActionResult Delete(int id)
 		{
-			_servico.Delete(id);
-			return NoContent();
+			try
+			{
+				_servico.Delete(id);
+				return NoContent();
+			}
+			catch (Exception ex)
+			{
+				return NotFound(ex.Message);
+			}
 		}
 	}
 }

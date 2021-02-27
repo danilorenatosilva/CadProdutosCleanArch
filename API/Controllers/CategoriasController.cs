@@ -35,7 +35,7 @@ namespace API.Controllers
 			var categoria = _servico.GetCategoriaById(id);
 			if (categoria == null)
 			{
-				return BadRequest("CategoriaViewModel não encontrada");
+				return NotFound();
 			}
 			return Ok(categoria);
 		}
@@ -45,7 +45,7 @@ namespace API.Controllers
 		{
 			try
 			{
-				if (categoria.ArquivoImagem.Length > 0)
+				if (categoria.ArquivoImagem != null && categoria.ArquivoImagem.Length > 0)
 				{
 					categoria.UrlImagem = "/imagens/"+categoria.ArquivoImagem.FileName;
 
@@ -96,7 +96,7 @@ namespace API.Controllers
 			}
 			catch (Exception ex)
 			{
-				return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+				return NotFound(ex.Message);
 			}
 		}
 	}
