@@ -1,6 +1,5 @@
 ﻿using AplicacaoCleanArch.Interfaces;
 using AplicacaoCleanArch.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,12 +13,10 @@ namespace API.Controllers
 	public class CategoriasController : ControllerBase
 	{
 		private readonly ICategoriaServico _servico;
-		private readonly IWebHostEnvironment _webHostEnvironment;
 
-		public CategoriasController(ICategoriaServico servico, IWebHostEnvironment webHostEnvironment)
+		public CategoriasController(ICategoriaServico servico)
 		{
 			_servico = servico;
-			_webHostEnvironment = webHostEnvironment;
 		}
 
 		[HttpGet]
