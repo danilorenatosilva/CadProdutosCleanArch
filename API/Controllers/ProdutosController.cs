@@ -33,7 +33,7 @@ namespace API.Controllers
 			var produto = _servico.GetProdutoById(id);
 			if (produto == null)
 			{
-				return BadRequest("ProdutoViewModel não encontrado");
+				return NotFound();
 			}
 			return Ok(produto);
 		}
@@ -44,7 +44,7 @@ namespace API.Controllers
 			var produtos = _servico.GetProdutosByIdCategoria(id).ToList();
 			if (produtos == null || produtos.Count <= 0)
 			{
-				return BadRequest("Produtos não encontrados para esta categoria");
+				return NotFound();
 			}
 			return Ok(produtos);
 		}
