@@ -54,7 +54,7 @@ namespace API.Controllers
 		{
 			try
 			{
-				if (produto.ArquivoImagem.Length > 0)
+				if (produto.ArquivoImagem != null && produto.ArquivoImagem.Length > 0)
 				{
 					produto.UrlImagem = "/imagens/" + produto.ArquivoImagem.FileName;
 
