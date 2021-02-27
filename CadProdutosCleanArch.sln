@@ -5,19 +5,21 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{83C2C913-87C0-4DF7-9178-0F45F13BC751}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DominioCleanArch", "DominioCleanArch\DominioCleanArch.csproj", "{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DominioCleanArch", "DominioCleanArch\DominioCleanArch.csproj", "{EF0BA15D-C6D6-4B2F-B049-F164B5D9A792}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestrutura", "Infraestrutura", "{C4D858C3-0B32-4F17-BBDE-9DE35DD7D5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfraCleanArch", "InfraCleanArch\InfraCleanArch.csproj", "{EFDB4F47-EF2B-4D88-9205-C68756847512}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfraCleanArch", "InfraCleanArch\InfraCleanArch.csproj", "{EFDB4F47-EF2B-4D88-9205-C68756847512}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aplicacao", "Aplicacao", "{D16CBD6B-99E7-4221-A644-D1D313658568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplicacaoCleanArch", "AplicacaoCleanArch\AplicacaoCleanArch.csproj", "{9321C974-75D0-49B7-916D-15ADB7DA877B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplicacaoCleanArch", "AplicacaoCleanArch\AplicacaoCleanArch.csproj", "{9321C974-75D0-49B7-916D-15ADB7DA877B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{04A6E0C7-6D8D-43D6-8F65-CD90BA6F689B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{04A6E0C7-6D8D-43D6-8F65-CD90BA6F689B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apresentacao", "Apresentacao\Apresentacao.csproj", "{DDC8A75A-5303-413E-B62D-BA17695F91F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apresentacao", "Apresentacao\Apresentacao.csproj", "{DDC8A75A-5303-413E-B62D-BA17695F91F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testes", "Testes\Testes.csproj", "{7E386F95-C6DD-430B-85C9-A25DB906B2DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{DDC8A75A-5303-413E-B62D-BA17695F91F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDC8A75A-5303-413E-B62D-BA17695F91F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDC8A75A-5303-413E-B62D-BA17695F91F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E386F95-C6DD-430B-85C9-A25DB906B2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E386F95-C6DD-430B-85C9-A25DB906B2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E386F95-C6DD-430B-85C9-A25DB906B2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E386F95-C6DD-430B-85C9-A25DB906B2DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
